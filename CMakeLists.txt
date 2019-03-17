@@ -52,15 +52,15 @@ ENDIF(NOT DEFINED PODOFO_BUILD_SHARED AND DEFINED PODOFO_BUILD_STATIC)
 # Some 64 bit linux distros use /usr/lib64 for 64 bit libraries.
 # on these platforms we must
 IF(NOT DEFINED WANT_LIB64)
-	# TODO: detect 64-bit build and existance of /usr/lib64 and set to TRUE.
-	MESSAGE("WANT_LIB64 unset; assuming normal library directory names")
-	SET(WANT_LIB64 FALSE)
+    # TODO: detect 64-bit build and existance of /usr/lib64 and set to TRUE.
+    MESSAGE("WANT_LIB64 unset; assuming normal library directory names")
+    SET(WANT_LIB64 FALSE)
 ENDIF(NOT DEFINED WANT_LIB64)
 
 IF(WANT_LIB64)
-	SET(LIBDIRNAME "lib64")
+    SET(LIBDIRNAME "lib64")
 ELSE(WANT_LIB64)
-	SET(LIBDIRNAME "lib")
+    SET(LIBDIRNAME "lib")
 ENDIF(WANT_LIB64)
 MESSAGE("Will install libraries to ${CMAKE_INSTALL_PREFIX}/${LIBDIRNAME}")
 
@@ -284,7 +284,7 @@ IF(CMAKE_COMPILER_IS_GNUCXX)
         -Wwrite-strings
         -Wredundant-decls
         -Wreorder
-	-Wold-style-cast
+    -Wold-style-cast
        )
     #
     # Note that we do not need debug definitions here. Set
@@ -377,32 +377,32 @@ FIND_PACKAGE(OpenSSL)
 FIND_PACKAGE(LIBSTLPORT)
 SET(stlport_libraries_if_use_stlport)
 IF(USE_STLPORT)
-	IF(LIBSTLPORT_FOUND)
-		MESSAGE("Using STLPort")
-		INCLUDE_DIRECTORIES(${LIBSTLPORT_HEADERS})
-		LINK_DIRECTORIES(${LIBSTLPORT_LIB})
-		SET(stlport_libraries_if_use_stlport stlport)
-		# Use the threaded STLPort
-		ADD_DEFINITIONS(-D_PTHREADS)
-	ELSE(LIBSTLPORT_FOUND)
-		MESSAGE(FATAL_ERROR "STLPort use requested, but STLPort not found.")
-	ENDIF(LIBSTLPORT_FOUND)
+    IF(LIBSTLPORT_FOUND)
+        MESSAGE("Using STLPort")
+        INCLUDE_DIRECTORIES(${LIBSTLPORT_HEADERS})
+        LINK_DIRECTORIES(${LIBSTLPORT_LIB})
+        SET(stlport_libraries_if_use_stlport stlport)
+        # Use the threaded STLPort
+        ADD_DEFINITIONS(-D_PTHREADS)
+    ELSE(LIBSTLPORT_FOUND)
+        MESSAGE(FATAL_ERROR "STLPort use requested, but STLPort not found.")
+    ENDIF(LIBSTLPORT_FOUND)
 ENDIF(USE_STLPORT)
 
 IF(WANT_FONTCONFIG)
-	FIND_PACKAGE(FONTCONFIG REQUIRED)
-	SET(PODOFO_HAVE_FONTCONFIG TRUE)
-	SET(PODOFO_LIB_FONTCONFIG:STRING fontconfig)
-	IF(FONTCONFIG_FOUND)
-	  MESSAGE("Found fontconfig headers in ${FONTCONFIG_INCLUDE_DIR}, library at ${FONTCONFIG_LIBRARIES}")
-	ELSE(FONTCONFIG_FOUND)
-	  MESSAGE("Could not find fontconfig.")
+    FIND_PACKAGE(FONTCONFIG REQUIRED)
+    SET(PODOFO_HAVE_FONTCONFIG TRUE)
+    SET(PODOFO_LIB_FONTCONFIG:STRING fontconfig)
+    IF(FONTCONFIG_FOUND)
+      MESSAGE("Found fontconfig headers in ${FONTCONFIG_INCLUDE_DIR}, library at ${FONTCONFIG_LIBRARIES}")
+    ELSE(FONTCONFIG_FOUND)
+      MESSAGE("Could not find fontconfig.")
         ENDIF(FONTCONFIG_FOUND)
 ELSE(WANT_FONTCONFIG)
-	# Might as well look for it anyway. This also sets the appropriate
-	# variables to empty values.
-	FIND_PACKAGE(FONTCONFIG)
-	SET(PODOFO_LIB_FONTCONFIG:STRING)
+    # Might as well look for it anyway. This also sets the appropriate
+    # variables to empty values.
+    FIND_PACKAGE(FONTCONFIG)
+    SET(PODOFO_LIB_FONTCONFIG:STRING)
 ENDIF(WANT_FONTCONFIG)
 
 # libjpeg has routines that take a FILE*. This is safe if and only
@@ -415,28 +415,28 @@ ENDIF(WANT_FONTCONFIG)
 # only affects PdfImage.cpp.
 #
 IF(DEFINED JPEG_RUNTIME_COMPATIBLE)
-	IF(JPEG_RUNTIME_COMPATIBLE)
-		# Trust the user to know what they're doing and pass a FILE*
-		SET(PODOFO_JPEG_RUNTIME_COMPATIBLE TRUE)
-	ENDIF(JPEG_RUNTIME_COMPATIBLE)
+    IF(JPEG_RUNTIME_COMPATIBLE)
+        # Trust the user to know what they're doing and pass a FILE*
+        SET(PODOFO_JPEG_RUNTIME_COMPATIBLE TRUE)
+    ENDIF(JPEG_RUNTIME_COMPATIBLE)
 ELSE(DEFINED JPEG_RUNTIME_COMPATIBLE)
-	IF(NOT WIN32)
-		# It's a sensible platform and the user hasn't told us
-		# otherwise - pass a FILE* .
-		SET(PODOFO_JPEG_RUNTIME_COMPATIBLE TRUE)
-	ENDIF(NOT WIN32)
+    IF(NOT WIN32)
+        # It's a sensible platform and the user hasn't told us
+        # otherwise - pass a FILE* .
+        SET(PODOFO_JPEG_RUNTIME_COMPATIBLE TRUE)
+    ENDIF(NOT WIN32)
 ENDIF(DEFINED JPEG_RUNTIME_COMPATIBLE)
 
 FIND_PACKAGE(LUA)
 IF(LUA_FOUND)
-	# If we have lua, we can build podofoimpose.
-	MESSAGE("Lua found - PoDoFoImpose and PoDoFoColor will be built with Lua support")
-	MESSAGE(" * Lua include directory: ${LUA_INCLUDE_DIR}")
-	MESSAGE(" * Lua libraries: ${LUA_LIBRARIES}")
-	INCLUDE_DIRECTORIES(${LUA_INCLUDE_DIR})
-	SET(PODOFO_HAVE_LUA TRUE)
+    # If we have lua, we can build podofoimpose.
+    MESSAGE("Lua found - PoDoFoImpose and PoDoFoColor will be built with Lua support")
+    MESSAGE(" * Lua include directory: ${LUA_INCLUDE_DIR}")
+    MESSAGE(" * Lua libraries: ${LUA_LIBRARIES}")
+    INCLUDE_DIRECTORIES(${LUA_INCLUDE_DIR})
+    SET(PODOFO_HAVE_LUA TRUE)
 ELSE(LUA_FOUND)
-	MESSAGE("Lua not found - PoDoFoImpose and PoDoFoColor will be built without Lua support")
+    MESSAGE("Lua not found - PoDoFoImpose and PoDoFoColor will be built without Lua support")
 ENDIF(LUA_FOUND)
 
 
@@ -484,14 +484,9 @@ LINK_DIRECTORIES(
 #
 SET(PODOFO_LIB_DEPENDS
   ${ZLIB_LIBRARIES}
-  ${LIBIDN_LIBRARIES}
   ${LIBCRYPTO_LIBRARIES}
-  ${LIBJPEG_LIBRARIES}
   ${PLATFORM_SYSTEM_LIBRARIES}
-  ${stlport_libraries_if_use_stlport}
   ${FREETYPE_LIBRARIES}
-  ${PNG_LIBRARIES}
-  ${TIFF_LIBRARIES}
   )
 
 IF(FONTCONFIG_FOUND AND WANT_FONTCONFIG)
@@ -539,5 +534,5 @@ CONFIGURE_FILE(${PoDoFo_SOURCE_DIR}/podofo_config.h.in ${PoDoFo_BINARY_DIR}/podo
 # your build (eg -DPODOFO_DIR=/path/to/podofo when running cmake to configure
 # the app that'll use podofo). See: FIND_PACKAGE(...) in the cmake docs.
 EXPORT_LIBRARY_DEPENDENCIES(
-	"${CMAKE_CURRENT_BINARY_DIR}/PoDoFoConfig.cmake"
-	APPEND)
+    "${CMAKE_CURRENT_BINARY_DIR}/PoDoFoConfig.cmake"
+    APPEND)
