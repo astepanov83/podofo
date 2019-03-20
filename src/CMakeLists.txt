@@ -265,7 +265,7 @@ IF(PODOFO_BUILD_STATIC)
     SET(PODOFO_DEPEND_TARGET podofo_static
         CACHE INTERNAL "Which PoDoFo library variant to depend on")
     SET(USING_SHARED_PODOFO FALSE)
-    INSTALL(TARGETS podofo_static
+    INSTALL(TARGETS podofo_static FreeType
         RUNTIME DESTINATION "bin"
         LIBRARY DESTINATION "${LIBDIRNAME}"
         ARCHIVE DESTINATION "${LIBDIRNAME}"
